@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.labs.qbit</groupId>
+    <artifactId>riddle-modules</artifactId>
+
+    <parent>
+        <groupId>org.labs.qbit</groupId>
+        <artifactId>riddle</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <packaging>pom</packaging>
+
+    <prerequisites>
+        <!--DO NOT ALTER OR MODIFY THE FOLLOWING. IF YOU DON'T MAVEN 3, PLEASE INSTALL IT-->
+        <maven>3</maven>
+    </prerequisites>
+
+    <modules>
+        <module>core</module>
+        <module>server</module>
+    </modules>
+
+</project>
