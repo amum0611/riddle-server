@@ -35,7 +35,7 @@ public class TCPClient {
     public static void main(String[] args) {
         Socket clientSocket;
         while (true) {
-            System.out.print("User: ");
+            System.out.print("TCP Client: ");
             BufferedReader clientReader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 String userInput = clientReader.readLine();

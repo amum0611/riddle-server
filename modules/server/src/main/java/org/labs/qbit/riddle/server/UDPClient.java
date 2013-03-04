@@ -33,7 +33,7 @@ public class UDPClient {
 
     public static void main(String[] args) {
         while (true) {
-            System.out.print("User: ");
+            System.out.print("UDP Client: ");
             BufferedReader clientReader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 DatagramSocket clientSocket = new DatagramSocket();
