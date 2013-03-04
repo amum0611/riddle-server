@@ -8,7 +8,7 @@
        for more information on DaliyRollingFileAppender configuration options.
     -->
     <appender name="error" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/tmp/location-error.log"/>
+        <param name="File" value="/tmp/riddle-error.log"/>
         <param name="Threshold" value="error"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -17,7 +17,7 @@
     </appender>
 
     <appender name="debug" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/tmp/location-debug.log"/>
+        <param name="File" value="/tmp/riddle-debug.log"/>
         <param name="Threshold" value="trace"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -26,7 +26,7 @@
     </appender>
 
     <appender name="info" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/tmp/location-info.log"/>
+        <param name="File" value="/tmp/riddle-info.log"/>
         <param name="Threshold" value="info"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
         <layout class="org.apache.log4j.PatternLayout">
