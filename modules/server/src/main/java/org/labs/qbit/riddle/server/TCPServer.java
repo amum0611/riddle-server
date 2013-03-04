@@ -36,24 +36,45 @@ public class TCPServer {
     public static void main(String[] args) {
 
         RiddleWrapper riddleWrapper = new RiddleWrapper();
+        ServerSocket serverSocket = null;
         try {
-            ServerSocket serverSocket = new ServerSocket(Port.TCP_PORT);
-            System.out.println(MessageFormat.format("Server Started at port {0}", Port.TCP_PORT));
+            serverSocket = new ServerSocket(Port.TCP_PORT);
+            System.out.println(MessageFormat.format("TCP Server Started at port {0}", Port.TCP_PORT));
             while(true) {
+                logger.debug("Waiting for an input");
                 Socket connectionSocket = serverSocket.accept();
+                logger.debug("Incoming client requests");
                 BufferedReader clientReader = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 DataOutputStream clientWriter = new DataOutputStream(connectionSocket.getOutputStream());
                 String clientInput = clientReader.readLine();
-                if (clientInput != null && clientInput.trim().equalsIgnoreCase("bye")) {
-                    break;
+                System.out.println("Client: " + clientInput);
+                if (clientInput == null) {
+                    continue;
                 }
                 String clientOutput = riddleWrapper.parse(clientInput);
-                logger.debug("Client Output: {0}", clientOutput);
-                clientWriter.writeBytes(clientOutput);
+                logger.debug("Client Output: {}", clientOutput);
+                clientWriter.writeBytes(clientOutput + '\n');
+                clientWriter.flush();
+                connectionSocket.close();
+                clientReader.close();
+                clientWriter.close();
+                logger.debug("Client Output: {} sent", clientOutput);
             }
-            serverSocket.close();
+
         } catch (IOException e) {
             logger.error("An error occurred", e);
+            System.out.println(e.getMessage());
+        } finally {
+            if (serverSocket != null) {
+                try {
+                    serverSocket.close();
+                    System.out.println("TCP Server is successfully terminated");
+                } catch (IOException e) {
+                    logger.debug("An error occurred", e);
+                    System.out.println(e.getMessage());
+                }
+            }
         }
+        System.out.println("Exit");
     }
 }

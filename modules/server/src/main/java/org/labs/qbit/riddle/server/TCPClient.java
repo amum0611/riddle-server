@@ -33,42 +33,42 @@ public class TCPClient {
     private static final Logger logger = LoggerFactory.getLogger(TCPClient.class);
 
     public static void main(String[] args) {
-        Socket clientSocket = null;
+        Socket clientSocket;
         while (true) {
             System.out.print("User: ");
             BufferedReader clientReader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 String userInput = clientReader.readLine();
-                if (userInput != null && userInput.trim().equalsIgnoreCase("hello")) {
-                    clientSocket = new Socket("localhost", Port.TCP_PORT);
-                    System.out.println("Server connection is successfully established");
-                } else if (userInput != null && userInput.trim().equalsIgnoreCase("hello")) {
+                clientSocket = new Socket("localhost", Port.TCP_PORT);
+                if (userInput != null && userInput.trim().equalsIgnoreCase("bye")) {
                     System.out.println("bye");
                     break;
                 }
-                if (clientSocket == null) {
-                    System.out.println("Server connection is not established");
-                } else {
-                    DataOutputStream serverWriter = new DataOutputStream(clientSocket.getOutputStream());
-                    BufferedReader serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                DataOutputStream serverWriter = new DataOutputStream(clientSocket.getOutputStream());
+                BufferedReader serverReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-                    logger.debug("User Input: {0}", userInput);
-                    serverWriter.writeBytes(userInput + '\n');
-                    String serverResponse = serverReader.readLine();
-                    System.out.println(MessageFormat.format("Server: {0}", serverResponse));
-                }
-
+                logger.debug("User Input: {}", userInput);
+                serverWriter.writeBytes(userInput + '\n');
+                serverWriter.flush();
+                logger.debug("User Input: {} is sent to the server", userInput);
+                String serverResponse = serverReader.readLine();
+                System.out.println(MessageFormat.format("Server: {0}", serverResponse));
+                serverWriter.close();
+                serverReader.close();
+                clientSocket.close();
             } catch (IOException e) {
                 logger.error("An error occurred", e);
+                System.out.println(MessageFormat.format("An error occurred: {0}", e.getMessage()));
                 System.exit(1);
             }
         }
         try {
-            if (clientSocket != null) {
-                clientSocket.close();
-            }
+            clientSocket.close();
+            System.out.println("TCP Server connection is successfully terminated");
         } catch (IOException e) {
             logger.error("An error occurred", e);
+            System.out.println(MessageFormat.format("An error occurred: {0}", e.getMessage()));
         }
+        System.out.println("Exit");
     }
 }

@@ -35,7 +35,10 @@ public class RiddleWrapper {
     }
 
     public String parse(String clientInput) {
-        logger.debug("Client Inout: {0}", clientInput);
+        logger.debug("Client Input: {}", clientInput);
+        if (clientInput == null) {
+            return "unknown message - 0";
+        }
         String[] split = clientInput.split(" ");
         if (split == null) {
             return "unknown message - 1";
@@ -43,13 +46,13 @@ public class RiddleWrapper {
         if (split[0].trim().equalsIgnoreCase("hello")) {
             return MessageFormat.format("Number of Riddles: {0}", riddleService.numberOfRiddles());
         }
-        if (split[0].trim().equalsIgnoreCase("riddle") && split[1] != null) {
+        if (split.length == 2 && split[0].trim().equalsIgnoreCase("riddle") && split[1] != null) {
             return riddleService.getRiddle(split[1].trim());
         }
         if (split[0].trim().equalsIgnoreCase("riddle")) {
             return riddleService.getRiddle();
         }
-        if (split[0].trim().equalsIgnoreCase("answer") && split[1] != null && split[2] != null) {
+        if (split.length == 3 && split[0].trim().equalsIgnoreCase("answer") && split[1] != null && split[2] != null) {
             try {
                 return String.valueOf(riddleService.evaluate(split[1].trim(), split[2].trim()));
             } catch (RuntimeException ex) {
