@@ -12,11 +12,16 @@
 
     <artifactId>riddle-server</artifactId>
 
+    <prerequisites>
+        <maven>3</maven>
+    </prerequisites>
+
     <dependencies>
         <dependency>
             <groupId>org.labs.qbit</groupId>
             <artifactId>riddle-core</artifactId>
             <version>1.0.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

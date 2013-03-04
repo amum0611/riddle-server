@@ -17,7 +17,6 @@
     <name>riddle-top-level</name>
 
     <prerequisites>
-        <!--DO NOT ALTER OR MODIFY THE FOLLOWING. IF YOU DON'T MAVEN 3, PLEASE INSTALL IT-->
         <maven>3</maven>
     </prerequisites>
 
